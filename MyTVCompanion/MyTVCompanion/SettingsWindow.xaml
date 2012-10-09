@@ -13,18 +13,17 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" Text="Search for a TV show" Margin="0,0,5,0"  />
-                <Button Grid.Column="1" Content="Search" Width="39"/>
+                <TextBox Grid.Column="0" x:Name="SearchBox" Text="Search for a TV show" Margin="0,0,5,0"  />
+                <Button Grid.Column="1" Content="Search" Width="39" Click="Button_Click_1"/>
             </Grid>
-            <ListView>
-                <ListView.Items>
-                    <ListViewItem Content="Search result" />
-                    <ListViewItem Content="Search result" />
-                    <ListViewItem Content="Search result" />
-                    <ListViewItem Content="Search result" />
-                </ListView.Items>
+            <ListView x:Name="SearchResults">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=SeriesName}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
-            <Button Content="Add selected show"/>
+            <Button Content="Add selected show" Click="Button_Click_2"/>
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Label HorizontalAlignment="Center" Content="My shows" />
