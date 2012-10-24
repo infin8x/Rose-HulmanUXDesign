@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using TvdbLib;
@@ -34,5 +35,5 @@ namespace MyTVCompanion
             var selected = SearchResults.SelectedItem as TvdbSearchResult;
             Shows.Add(_tvdbHandler.GetSeries(selected.Id, TvdbLanguage.DefaultLanguage, false, false, false));
         }
-    }
+    } 
 }
