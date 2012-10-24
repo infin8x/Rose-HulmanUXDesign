@@ -33,7 +33,7 @@ namespace MyTVCompanion
         {
             if (SearchResults.SelectedIndex == -1) return;
             var selected = SearchResults.SelectedItem as TvdbSearchResult;
-            Shows.Add(_tvdbHandler.GetSeries(selected.Id, TvdbLanguage.DefaultLanguage, false, false, false));
+            Shows.Add(_tvdbHandler.GetSeries(selected.Id, TvdbLanguage.DefaultLanguage, true, false, false));
         }
     } 
 }

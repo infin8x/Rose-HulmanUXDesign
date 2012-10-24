@@ -2,6 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="MyTVCompanion" Height="350" Width="525">
 
     <Grid>
@@ -14,10 +15,16 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Label HorizontalAlignment="Center" Content="{Binding Source={x:Static System:DateTime.Today}, StringFormat={}{0:MMMM d, yyyy}}" />
-            <ListView />
+            <Label HorizontalAlignment="Center" Content="{Binding Source={x:Static System:DateTime.Today}, StringFormat={}{0:MMMM d yyyy}}" />
+            <ListView ItemsSource="{Binding SelectedDayEpisodes}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackPanel>
-        <Calendar Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Calendar Grid.Row="0" Grid.Column="1" x:Name="Calendar" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedDatesChanged="CalendarSelectedDatesChanged"  />
         <Button Grid.Row="1" Grid.ColumnSpan="2" Click="OnSettingsButtonClick">Settings</Button>
     </Grid>
 </Window>
