@@ -15,7 +15,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Label HorizontalAlignment="Center" Content="{Binding Source={x:Static System:DateTime.Today}, StringFormat={}{0:MMMM d yyyy}}" />
+            <Label HorizontalAlignment="Center" Content="{Binding ElementName=Calendar, Path=SelectedDate, StringFormat={}{0:MMMM d yyyy}}" />
             <ListView ItemsSource="{Binding SelectedDayEpisodes}">
                 <ListView.ItemTemplate>
                     <DataTemplate>

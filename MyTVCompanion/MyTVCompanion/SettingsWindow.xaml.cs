@@ -12,28 +12,24 @@ namespace MyTVCompanion
     /// </summary>
     public partial class SettingsWindow : Window
     {
-        private TvdbHandler _tvdbHandler;
-        private List<TvdbSearchResult> results;
-        public ObservableCollection<TvdbSeries> Shows { get; set; }
+        public ObservableCollection<TvdbSeries> Shows { get { return ((App)Application.Current).Shows; } }
+        private TvdbHandler TvdbHandler { get { return ((App)Application.Current).TvdbHandler; } }
 
         public SettingsWindow()
         {
-            Shows = ((App)Application.Current).Shows;
-            _tvdbHandler = ((App)Application.Current).TvdbHandler;
             InitializeComponent();
         }
 
         private void SearchButtonClick(object sender, RoutedEventArgs e)
         {
-            results = _tvdbHandler.SearchSeries(SearchBox.Text);
-            SearchResults.ItemsSource = results;
+            SearchResults.ItemsSource = TvdbHandler.SearchSeries(SearchBox.Text);
         }
 
         private void AddButtonClick(object sender, RoutedEventArgs e)
         {
             if (SearchResults.SelectedIndex == -1) return;
             var selected = SearchResults.SelectedItem as TvdbSearchResult;
-            Shows.Add(_tvdbHandler.GetSeries(selected.Id, TvdbLanguage.DefaultLanguage, true, false, false));
+            Shows.Add(TvdbHandler.GetSeries(selected.Id, TvdbLanguage.DefaultLanguage, true, false, false));
         }
-    } 
+    }
 }

@@ -22,6 +22,7 @@ namespace MyTVCompanion
             _tvdbHandler = ((App)Application.Current).TvdbHandler;
             SelectedDayEpisodes = new ObservableCollection<String>();
             InitializeComponent();
+            Calendar.SelectedDate = DateTime.Today;
             GetDayEpisodes(DateTime.Today);
         }
 
