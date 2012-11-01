@@ -56,6 +56,7 @@ namespace MyTVCompanion
             var window = new SettingsWindow();
             window.Closed += (o, k) =>
                 GetDayEpisodes(Calendar.SelectedDate.GetValueOrDefault());
+            window.Owner = this;
             window.Show();
         }
 
