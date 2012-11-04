@@ -3,28 +3,30 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="MyTVCompanion" Height="350" Width="525">
+        Title="MyTVCompanion" Height="350" Width="525"
+        WindowStartupLocation="CenterScreen">
 
-    <Grid>
+    <Grid Style="{DynamicResource GridStyle}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Label HorizontalAlignment="Center" Content="{Binding ElementName=Calendar, Path=SelectedDate, StringFormat={}{0:MMMM d yyyy}}" />
-            <ListView ItemsSource="{Binding SelectedDayEpisodes}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}" />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <Label HorizontalAlignment="Center" Content="{Binding ElementName=Calendar, Path=SelectedDate, StringFormat={}{0:MMMM d yyyy}}" Style="{DynamicResource HeaderLabelStyle}"/>
+                <ListView ItemsSource="{Binding SelectedDayEpisodes}" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
         </StackPanel>
-        <Calendar Grid.Row="0" Grid.Column="1" x:Name="Calendar" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedDatesChanged="CalendarSelectedDatesChanged"  />
-        <Button Grid.Row="1" Grid.ColumnSpan="2" Click="OnSettingsButtonClick">Settings</Button>
+        <Calendar Grid.Row="0" Grid.Column="2" x:Name="Calendar" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedDatesChanged="CalendarSelectedDatesChanged"  />
+        <Button Grid.Row="1" Grid.ColumnSpan="3" Click="OnSettingsButtonClick" Style="{DynamicResource ButtonStyle}">Settings</Button>
     </Grid>
 </Window>
