@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
+using MyTVCompanion.ViewModel;
 using TvdbLib;
 using TvdbLib.Data;
 
@@ -12,24 +11,31 @@ namespace MyTVCompanion
     /// </summary>
     public partial class SettingsWindow : Window
     {
-        public ObservableCollection<TvdbSeries> Shows { get { return ((App)Application.Current).Shows; } }
-        private TvdbHandler TvdbHandler { get { return ((App)Application.Current).TvdbHandler; } }
+        public static readonly DependencyProperty ViewModelProperty =
+            DependencyProperty.Register("ViewModel", typeof (SettingsWindowViewModel), typeof (SettingsWindow), new PropertyMetadata(default(SettingsWindowViewModel)));
 
-        public SettingsWindow()
+        public SettingsWindowViewModel ViewModel
         {
+            get { return (SettingsWindowViewModel) GetValue(ViewModelProperty); }
+            set { SetValue(ViewModelProperty, value); }
+        }
+
+        public SettingsWindow(TvdbHandler handler, ObservableCollection<TvdbSeries> shows)
+        {
+            ViewModel = new SettingsWindowViewModel(handler, shows);
             InitializeComponent();
         }
 
         private void SearchButtonClick(object sender, RoutedEventArgs e)
         {
-            SearchResults.ItemsSource = TvdbHandler.SearchSeries(SearchBox.Text);
+            SearchResults.ItemsSource = ViewModel.SearchSeries(SearchBox.Text);
         }
 
         private void AddButtonClick(object sender, RoutedEventArgs e)
         {
             if (SearchResults.SelectedIndex == -1) return;
             var selected = SearchResults.SelectedItem as TvdbSearchResult;
-            Shows.Add(TvdbHandler.GetSeries(selected.Id, TvdbLanguage.DefaultLanguage, true, false, false));
+            ViewModel.AddShow(selected.Id);
         }
     }
 }
