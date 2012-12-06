@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="WP8RHITBandwidth.BandwidthMeter"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    d:DesignHeight="480" d:DesignWidth="150">
+
+    <Border x:Name="LayoutRoot" BorderBrush="{StaticResource PhoneForegroundBrush}" BorderThickness="5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".5*"/>
+                <RowDefinition Height=".5*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Background="#88B22222">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Text="{Binding RedTextBlock}"/>
+            </Border>
+            <Border Grid.Row="1" Background="#88FFA500">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Text="{Binding YellowTextBlock}"/>
+            </Border>
+            <Border Grid.Row="2"  Background="#8832CD32">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Text="{Binding GreenTextBlock}"/>
+            </Border>
+            <Border Name="UsageBorder" Grid.RowSpan="3" Background="#BBB50938" VerticalAlignment="Bottom" Height="0">
+                <TextBlock Name="UsageTextBlock" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>
