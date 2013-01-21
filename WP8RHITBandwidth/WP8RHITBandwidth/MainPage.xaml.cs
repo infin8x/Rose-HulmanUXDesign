@@ -31,6 +31,11 @@ namespace WP8RHITBandwidth
             }
         }
 
+        private void SettingsButtonClick(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
+        }
+
         // Load data for the ViewModel Items
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
