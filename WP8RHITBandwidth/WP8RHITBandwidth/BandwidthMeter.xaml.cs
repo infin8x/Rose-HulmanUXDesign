@@ -42,5 +42,12 @@ namespace WP8RHITBandwidth
             get { return (String)GetValue(GreenTextBlockProperty); }
             set { SetValue(GreenTextBlockProperty, value); }
         }
+
+        public void UpdateBorder(double value, double gridHeight)
+        {
+            var to = value / 5000 * gridHeight;
+            UsageBorder.Visibility = Visibility.Visible;
+            UsageBorder.Height = to;
+        }
     }
 }

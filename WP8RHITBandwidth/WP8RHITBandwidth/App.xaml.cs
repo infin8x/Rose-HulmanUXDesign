@@ -13,6 +13,8 @@ using WP8RHITBandwidth.ViewModels;
 
 namespace WP8RHITBandwidth
 {
+    using System.IO.IsolatedStorage;
+
     public partial class App : Application
     {
         private static MainViewModel viewModel = null;
@@ -75,7 +77,21 @@ namespace WP8RHITBandwidth
                 // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
+            RootFrame.Navigating += RootFrame_Navigating;
+        }
 
+        private void RootFrame_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (!e.Uri.ToString().Contains("/MainPage.xaml"))
+                return;
+
+            var settings = IsolatedStorageSettings.ApplicationSettings;
+            if (settings.Contains("user"))
+                return; // no first-time setup required
+
+            e.Cancel = true; // first-time setup required
+            RootFrame.Dispatcher.BeginInvoke(() => RootFrame.Navigate(new Uri("/SettingsPage.xaml",
+                                                       UriKind.Relative)));
         }
 
         // Code to execute when the application is launching (eg, from Start)
