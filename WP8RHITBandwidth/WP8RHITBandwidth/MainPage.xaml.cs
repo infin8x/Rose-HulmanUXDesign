@@ -44,6 +44,14 @@ namespace WP8RHITBandwidth
             if (settings.Contains("BandwidthClass"))
                 UpdateUi(BandwidthResults.RetrieveFromIsolatedStorage(), false);
 
+            var indicator = new ProgressIndicator
+            {
+                IsVisible = true,
+                Text = "Updating usage...",
+                IsIndeterminate = true
+            };
+            SystemTray.ProgressIndicator = indicator;
+
             new Thread(Scraper.Scrape).Start(this);
         }
 
@@ -60,6 +68,17 @@ namespace WP8RHITBandwidth
                 control.Key.UsageTextBlock.Text =
                     control.Value;
             }
+
+            var tileData = new FlipTileData()
+            {
+                BackContent = GetBandwidthStringForTile(bandwidthResults),
+                Title = "Bandwidth Monitor"
+            };
+            var primaryTile = ShellTile.ActiveTiles.First();
+            primaryTile.Update(tileData);
+
+            if (fromNetwork)
+                SystemTray.ProgressIndicator.IsVisible = false;
         }
 
         private static double GetBandwidthNumberFromString(String str)
@@ -75,6 +94,13 @@ namespace WP8RHITBandwidth
                     "The credentials you entered don't seem to be working, or we can't find the bandwidth tool right now.");
                 NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
             });
+        }
+        
+        private static String GetBandwidthStringForTile(BandwidthResults results)
+        {
+            var received = Convert.ToInt32(GetBandwidthNumberFromString(results.PolicyReceived)) + " MB";
+            var sent = Convert.ToInt32(GetBandwidthNumberFromString(results.PolicySent)) + " MB";
+            return results.BandwidthClass + "\r\nD: " + received + "\r\nU: " + sent;
         }
 
         private void SettingsButtonClick(object sender, EventArgs e)

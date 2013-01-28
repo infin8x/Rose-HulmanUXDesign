@@ -10,6 +10,8 @@ using Microsoft.Phone.Shell;
 
 namespace WP8RHITBandwidth
 {
+    using System.Windows.Media.Animation;
+
     public partial class BandwidthMeter : UserControl
     {
         public BandwidthMeter()
@@ -45,9 +47,10 @@ namespace WP8RHITBandwidth
 
         public void UpdateBorder(double value, double gridHeight)
         {
+            var sb = (Storyboard)Resources["ShowUsageStoryboard"];
             var to = value / 5000 * gridHeight;
-            UsageBorder.Visibility = Visibility.Visible;
-            UsageBorder.Height = to;
+            ((DoubleAnimation)sb.Children[0]).To = to > 40 ? to : 40;
+            sb.Begin();
         }
     }
 }

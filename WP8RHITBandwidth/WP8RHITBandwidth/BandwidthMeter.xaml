@@ -9,7 +9,17 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
     d:DesignHeight="480" d:DesignWidth="150">
-
+    <UserControl.Resources>
+        <Storyboard x:Name="ShowUsageStoryboard">
+            <DoubleAnimation Storyboard.TargetName="UsageBorder" 
+                             Storyboard.TargetProperty="Height" 
+                             Duration="0:0:2">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseInOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </UserControl.Resources>
     <Border x:Name="LayoutRoot" BorderBrush="{StaticResource PhoneForegroundBrush}" BorderThickness="5">
         <Grid>
             <Grid.RowDefinitions>

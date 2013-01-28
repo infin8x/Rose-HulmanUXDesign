@@ -86,6 +86,7 @@ namespace WP8RHITBandwidth
                 return;
 
             var settings = IsolatedStorageSettings.ApplicationSettings;
+            
             if (settings.Contains("user"))
                 return; // no first-time setup required
 
